@@ -1,0 +1,77 @@
+<div class="container contribute">
+  <div class="row" style="padding-top: 40px;">
+    <div class="col-md-4">
+      <a href="/"> HOME </a>
+
+      <i class="fa fa-caret-right"></i>
+      <a href="/contribute">Contribute</a>
+
+      <i class="fa fa-caret-right"></i>
+      <a href="/contribute/canonical-data">Canonical Data</a>
+
+      <i class="fa fa-caret-right"></i>
+      <a href="/contribute/canonical-data/<%= current_problem.slug %>"><%= current_problem.name %></a>
+    </div>
+
+    <div class="col-md-8">
+      <h1><%= current_problem.name %></h1>
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 20px;">
+    <aside role="complementary">
+      <div class="col-md-4">
+        <ul class="nav nav-pills nav-stacked">
+
+          <% problems.each do |problem| %>
+            <li class="<%= "active" if problem.slug == current_problem.slug %>">
+              <a href="/contribute/canonical-data/<%= problem.slug %>">
+                <%= problem.name %>
+              </a>
+            </li>
+          <% end %>
+
+        </ul>
+      </div>
+    </aside>
+
+    <div class="col-md-8 tab-content">
+      <div class="tab-pane active" id="problem-<%= current_problem.slug %>">
+          <% if current_problem.canonical_data_url %>
+            <p>This problem already has a <code>canonical-data.json</code> file. You can view it <a href="<%= current_problem.canonical_data_url %>">here</a>.</p>
+
+          <% else %>
+
+            <p><%= current_problem.blurb %></p>
+            <p>
+            View the full problem description <a href="<%= current_problem.description_url %>">here</a>.
+            </p>
+
+            <p>
+              The process for extracting canonical data is described in the <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#improving-consistency-by-extracting-shared-test-data">Contributing Guide</a>.
+            </p>
+
+
+            <h2>Implementations</h2>
+
+            <p>
+            <%= current_problem.name %> has been implemented in <%= implementations.count %> <%= "track".pluralize(implementations.count) %>:
+            </p>
+
+            <% implementations.each do |implementation| %>
+              <ul>
+                <li>
+                <a href="<%= implementation.git_url %>">
+                    <%= implementation.track.language %>
+                  </a>
+                </li>
+
+              </ul>
+            <% end %>
+
+          <% end %>
+     </div>
+    </div>
+  </div>
+
+</div>
