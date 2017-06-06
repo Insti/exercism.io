@@ -46,3 +46,10 @@ namespace :test do
     test:lineman
   )
 end
+
+Rake::TestTask.new do |t|
+  t.name = "test:rouge"
+  t.description = 'Run only the Rouge tests'
+  t.test_files = FileList['test/lib/rouge/*_test.rb']
+end
+
